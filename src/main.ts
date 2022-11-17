@@ -13,6 +13,11 @@ async function main() {
       whitelist: true,
       //arroja un error si se mandan mas valores de los esperados al servicio
       forbidNonWhitelisted: true,
+      //transforma los parameter enviados por url a la definicion del dto transform:true, enableImplicitConversion:true,
+      transform:true,
+      transformOptions:{
+        enableImplicitConversion:true,
+      }
     })),
 
 
