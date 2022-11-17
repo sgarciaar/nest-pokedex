@@ -1,10 +1,12 @@
 import { Injectable, Controller, BadRequestException, InternalServerErrorException, NotFoundException, Query } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { ConfigService } from '@nestjs/config';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Pokemon } from './entities/pokemon.entity';
 import { PaginationDto } from '../common/dto/paginatin.dto';
+
 
 @Injectable()
 export class PokemonService {
@@ -12,11 +14,23 @@ export class PokemonService {
 
   constructor(
     @InjectModel(Pokemon.name)
-    private readonly pokemonModel:Model<Pokemon>
+    private readonly pokemonModel:Model<Pokemon>,
+
+
+    private  readonly configService:ConfigService
 
 
 
-  ){}
+  ){
+    //imprimir variables globales desde el .env
+   //console.log(process.env.DEFOUL_LIMIT);
+    //imprimir variables globales desde app.config.ts
+    //console.log(configService.get('defaultLimit'));
+    //esto no hace conversion es solo para decirte a ts que es un numero
+   // const defaultLimit = configService.get<number>('defaultLimit');
+    //console.log(defaultLimit)
+
+  }
 
  async create(createPokemonDto: CreatePokemonDto) {
     
@@ -35,8 +49,10 @@ catch (error)
 
 async  findAll(paginationDto:PaginationDto ) {
 
+
+
   //el offset es la paginacion
-  const{ limit=10,offset=0} = paginationDto;
+  const{ limit=5,offset=0} = paginationDto;
 
     return await this.pokemonModel.find().limit(limit).skip(offset).sort({
       //significa que orede la columna no de forma acendente

@@ -19,11 +19,20 @@ npm i -g @nestjs/cli
 ```
 docker-compose up -d
 ```
+5. Clonar el archivo ```.env.template``` y renobrar la copia  a ```.env```
 
-5. Reconstruir la Bd con la semilla
+6. llenar las variables de entorno dfinidas  en el ```.env```
+
+7. Ejecutar la aplicacion  en dev:
+````
+yarn stary:dev
+````
+
+8. Reconstruir la Bd con la semilla
 ```
 localhost:3000/api/v2/seed
 ```
+
 
 
 

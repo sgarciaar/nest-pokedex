@@ -7,12 +7,19 @@ import { PokemonModule } from './pokemon/pokemon.module';
 import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
+import { EnvConfiguration } from './config/app.config';
+import { JoiValidationSchema } from './config/joi.validation';
 
 @Module({
   imports: [
 
     //configuracion al inicio para ocupar variables de entornos personalizadas
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      //configuracion que se agrega con el nombre de la funcion descrito en el archivo app.config.ts conversiones y mapeos
+      load: [EnvConfiguration],
+      //esto se agrega al trabajar con joi conversiones y mapeos con validaciones 
+      validationSchema: JoiValidationSchema,
+    }),
 
     ServeStaticModule.forRoot({
     rootPath: join(__dirname,'..','public'),

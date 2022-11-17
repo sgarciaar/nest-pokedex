@@ -22,7 +22,8 @@ async function main() {
 
 
 
-
-  await app.listen(3000);
+//a este nivel del main solo se pueden definir las variables de entorno de esta forma process.env.PORT
+  await app.listen(process.env.PORT);
+  console.log(`La app esta corriendo en el puerto ${process.env.PORT}`);
 }
 main();
